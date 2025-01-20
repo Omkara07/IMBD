@@ -1,6 +1,8 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import AddMoviePreview from '../components/AddMoviePreview';
 import AddMovieForm from '../components/AddMovieForm';
+import { UserContext } from '../App';
+import { useNavigate } from 'react-router-dom';
 
 export interface movieType {
     name: string,
@@ -21,9 +23,17 @@ interface AddMovieContextType {
 export const AddMovieContext = createContext<AddMovieContextType>({} as AddMovieContextType)
 const AddMoviePage = () => {
     const [movieData, setMovieData] = useState<movieType | null>(null)
+    const { user } = useContext(UserContext);
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!user || !user?.token) {
+            navigate('/signin')
+        }
+    }, [])
     return (
         <AddMovieContext.Provider value={{ movieData, setMovieData }}>
-            <div className='flex justify-around items-center bg-gray-900 min-h-screen pt-20 gap-10 md:p-10 max-md:p-4 max-md:flex-col '>
+            <div className='flex justify-around items-center bg-gray-900 min-h-screen pt-20 gap-10 md:p-10 max-md:p-4 max-md:pt-20 max-md:flex-col '>
                 <div className='flex md:w-1/2 w-full md:h-[80vh] shadow-xl shadow-gray-950 bg-gray-950 rounded-xl'>
                     <AddMoviePreview />
                 </div>

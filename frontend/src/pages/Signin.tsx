@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../App';
 
 const Signin = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -12,6 +13,7 @@ const Signin = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate()
+    const { setUser } = useContext(UserContext)
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -23,6 +25,7 @@ const Signin = () => {
         setSuccess(true);
         const user = await axios.post('http://localhost:5000/api/v1/user/signin', formData);
         localStorage.setItem('user', JSON.stringify(user.data));
+        setUser(user.data)
         navigate('/')
     };
 
@@ -106,7 +109,7 @@ const Signin = () => {
                                     type="submit"
                                     className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg text-sm font-medium text-white bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-500 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-orange-500 transition-all duration-200 shadow-lg shadow-orange-500/20"
                                 >
-                                    Sign up
+                                    Sign In
                                 </button>
                             </div>
                             <div className='flex justify-center w-full mx-auto'>

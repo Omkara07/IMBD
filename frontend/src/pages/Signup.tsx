@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../App';
 
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +14,7 @@ const Signup = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate()
+    const { setUser } = useContext(UserContext)
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -28,6 +30,7 @@ const Signup = () => {
         setSuccess(true);
         const user = await axios.post('http://localhost:5000/api/v1/user/signup', formData);
         localStorage.setItem('user', JSON.stringify(user.data));
+        setUser(user.data)
         navigate('/')
     };
 

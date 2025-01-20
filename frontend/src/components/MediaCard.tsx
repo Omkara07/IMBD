@@ -12,7 +12,7 @@ function MediaCard({ title, name, first_air_date, vote_average, poster_path, ove
     }
     return (
         <Link to={`/${isOgMovie ? 'ogmovie' : `${isMovie ? 'movie' : 'tv'}`}/${id}`} className="relative group cursor-pointer w-full">
-            <div className="overflow-hidden rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:z-20 group-hover:shadow-2xl">
+            <div className="overflow-hidden rounded-lg shadow-lg max-md:w-60 max-md:h-80 transition-transform duration-300 group-hover:scale-110 group-hover:z-20 group-hover:shadow-2xl">
                 <div className="relative">
                     {
                         isOgMovie ? <img
@@ -45,8 +45,8 @@ function MediaCard({ title, name, first_air_date, vote_average, poster_path, ove
                         <Star size={16} className="fill-yellow-400" />
                         {!isOgMovie && <span className="ml-1 text-sm">{vote_average}</span>}
                         {
-                            isMovie ? <span className="ml-5 text-sm text-white">{formatDate(release_date)}</span> :
-                                <span className="ml-5 text-sm text-white">{isMovie ? release_date : formatDate(first_air_date)}</span>
+                            isOgMovie ? <span className="ml-5 text-sm text-white">{formatDate(release_date)}</span> :
+                                <span className="ml-5 text-sm text-white">{isMovie ? formatDate(release_date) : formatDate(first_air_date)}</span>
                         }
                     </div>
                 </div>

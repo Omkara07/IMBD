@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Calendar, Clock, Star, DollarSign, Link } from 'lucide-react';
 import ActorCard from '../components/ActorCard';
 import { UserContext } from '../App';
@@ -17,6 +17,7 @@ const MoviePage = ({ isMovie, isOgMovie = false }: { isMovie: boolean, isOgMovie
     const { user } = useContext(UserContext)
     const [Img, setImg] = useState<string | null>(null)
     const [backImg, setBackImg] = useState<string | null>(null)
+    const navigate = useNavigate()
 
     const getData = async () => {
         if (isOgMovie) {
@@ -61,6 +62,9 @@ const MoviePage = ({ isMovie, isOgMovie = false }: { isMovie: boolean, isOgMovie
         const f = async () => {
             await getData();
         }
+        if (!user || !user?.token) {
+            navigate('/signin')
+        }
         f()
     }, []);
 
@@ -71,6 +75,7 @@ const MoviePage = ({ isMovie, isOgMovie = false }: { isMovie: boolean, isOgMovie
             maximumFractionDigits: 0
         }).format(number);
     };
+
 
     // If data is still loading, display loading state
     if (loading) {
@@ -83,9 +88,9 @@ const MoviePage = ({ isMovie, isOgMovie = false }: { isMovie: boolean, isOgMovie
     if (error) {
         return <div className="min-h-screen bg-gray-900 text-white">{error}</div>;
     }
-
+    console.log(data)
     return (
-        <div className="min-h-screen bg-gray-900 text-white">
+        <div className="min-h-screen bg-gray-900 text-white pt-5">
             {/* Hero Section with Backdrop */}
             {data && (
                 <div

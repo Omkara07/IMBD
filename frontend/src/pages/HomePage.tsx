@@ -17,7 +17,7 @@ type moiveType = {
     poster_path: string,
     backdrop_path: string,
     overview: string,
-    first_air_date: string,
+    release_date: string,
 }
 type showType = {
     id: string,
@@ -26,7 +26,8 @@ type showType = {
     poster_path: string,
     backdrop_path: string,
     overview: string,
-    release_date: string,
+    first_air_date: string,
+
 }
 type peopleType = {
     id: string,
@@ -76,7 +77,7 @@ function HomePage() {
             {/* Main Content */}
             <main className="container mx-auto px-4 py-12 w-full">
                 {/* Top Movies Section */}
-                <section className="mb-16">
+                <section className="mb-16 ">
                     <div className="flex items-center mb-8 justify-between">
                         <div className='flex gap-2 items-center'>
                             <Clapperboard className="text-yellow-400 mr-2" />
@@ -96,6 +97,7 @@ function HomePage() {
                     </div>
                 </section>
 
+                {/* Original Movies Section */}
                 <section className="mb-16">
                     <div className="flex items-center mb-8 justify-between">
                         <div className='flex gap-2 items-center'>
@@ -128,7 +130,7 @@ function HomePage() {
                             <ChevronRight />
                         </Link>
                     </div>
-                    <div className="flex overflow-x-auto gap-6 overflow-y-hidden w-full">
+                    <div className="flex overflow-x-auto gap-6 overflow-y-hidden w-full ">
                         {topTVShows && topTVShows.map((show, index) => (
                             <div key={index} className="flex-shrink-0">
                                 <MediaCard {...show} isMovie={false} />
@@ -172,7 +174,6 @@ function HomePage() {
                         </div>
                         <div className="flex space-x-6">
                             <a href="#" className="text-gray-400 hover:text-yellow-400">About</a>
-                            <a href="#" className="text-gray-400 hover:text-yellow-400">API</a>
                             <a href="#" className="text-gray-400 hover:text-yellow-400">Contact</a>
                             <a href="#" className="text-gray-400 hover:text-yellow-400">Terms</a>
                         </div>
