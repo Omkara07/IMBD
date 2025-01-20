@@ -53,7 +53,7 @@ const Navbar = () => {
                                 user ?
                                     <div className='flex items-center space-x-5'>
                                         <Link to={'/add-movie'} className='bg-transparent border-black border-[3px] text-yellow-500 hover:text-yellow-400 hover:bg-gray-800 font-bold transition-all duration-300 px-4 py-2 rounded-xl'>Add Movie</Link>
-                                        <button onClick={() => { setShowBox((prev) => !prev) }} className='bg-black text-yellow-500 hover:text-yellow-400 hover:bg-gray-800 font-bold text-xl w-12 aspect-square flex items-center justify-center transition-all duration-300 rounded-full'>{user?.name[0].toUpperCase()}</button>
+                                        <button onClick={() => { setShowBox((prev) => !prev) }} className='bg-black text-yellow-500 hover:text-yellow-400 hover:bg-gray-800 font-bold w-10 aspect-square flex items-center justify-center transition-all duration-300 rounded-full'>{user?.name[0].toUpperCase()}</button>
                                     </div>
                                     :
                                     <Link to={'/signin'}> <button className='bg-yellow-400 text-black hover:text-yellow-400 hover:bg-gray-700 font-semibold transition-all duration-300 px-4 py-2 rounded-xl'>Signin</button></Link>
@@ -61,9 +61,14 @@ const Navbar = () => {
                         </nav>
                         <div className='flex items-center max-md:justify-between gap-8 md:hidden'>
                             <button onClick={() => { setShowSearchBox((prev) => !prev) }} className='md:hidden'>
-                                <Search size={28} strokeWidth={3} className='md:hidden' />
+                                <Search size={20} strokeWidth={3} className='md:hidden' />
                             </button>
-                            <button onClick={() => { setShowBox((prev) => !prev) }} className='bg-black text-yellow-500 hover:text-yellow-400 hover:bg-gray-800 w-10 aspect-square flex items-center justify-center font-bold text-xl md:hidden transition-all duration-300 px-4 py-2 rounded-full'>{user?.name[0].toUpperCase()}</button>
+                            {
+                                user ?
+                                    <button onClick={() => { setShowBox((prev) => !prev) }} className='bg-black text-yellow-500 hover:text-yellow-400 hover:bg-gray-800 font-bold w-10 aspect-square flex items-center justify-center transition-all duration-300 rounded-full'>{user?.name[0].toUpperCase()}</button>
+                                    :
+                                    <Link to={'/signin'}> <button className='bg-yellow-400 text-black hover:text-yellow-400 hover:bg-gray-700 font-semibold transition-all duration-300 px-4 py-2 rounded-xl'>Signin</button></Link>
+                            }
                         </div>
                     </div>
                 </div>
@@ -88,10 +93,10 @@ const Navbar = () => {
                     <>
                         <div
                             onClick={() => { setShowBox(false) }}
-                            className="bg-black bg-opacity-80 h-screen w-screen md:hidden fixed inset-0 flex justify-center items-center z-40"
+                            className="bg-black bg-opacity-80 backdrop-blur-lg h-screen w-screen md:hidden fixed inset-0 flex justify-center items-center z-40"
                         >
                             {/* Close button */}
-                            <div className="relative w-full h-full py-4 px-6 rounded-xl shadow-lg">
+                            <div className="relative w-full h-full px-6 rounded-xl shadow-lg">
                                 <button
                                     onClick={() => setShowBox(false)}
                                     className="absolute top-5 right-5 text-5xl text-gray-400 hover:text-white"
@@ -100,7 +105,7 @@ const Navbar = () => {
                                 </button>
 
                                 {/* Centered content */}
-                                <div className="flex flex-col items-center gap-5 justify-center mt-52 w-full text-2xl font-bold ">
+                                <div className="flex flex-col items-center gap-5 justify-center mt-44 w-full text-2xl font-bold ">
                                     <button
                                         onClick={() => { navigate('/add-movie') }}
                                         className="hover:bg-gray-800 text-gray-200 hover:text-white px-10 py-2 md:hidden"

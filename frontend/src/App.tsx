@@ -2,7 +2,7 @@ import './App.css';
 import HomePage from './pages/HomePage';
 import MoviePage from './pages/moviePage';
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import ActorPage from './pages/ActorPage';
@@ -24,6 +24,20 @@ interface UserContextType {
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
 
+
+const MainLayout = () => (
+  <>
+    <Navbar />
+    <Outlet />
+  </>
+);
+
+// no navbar for the auth pages 
+const AuthLayout = () => (
+  <Outlet />
+);
+
+
 function App() {
   const [user, setUser] = useState<UserType | null>(null);
 
@@ -43,21 +57,29 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <BrowserRouter>
-        <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/movie/:id" element={<MoviePage isMovie={true} />} />
-          <Route path="/tv/:id" element={<MoviePage isMovie={false} />} />
-          <Route path="/ogmovie/:id" element={<MoviePage isMovie={false} isOgMovie={true} />} />
-          <Route path="/actor/:id" element={<ActorPage />} />
-          <Route path="/add-movie" element={<AddMoviePage />} />
-          <Route path="/movies" element={<GridView type="movie" />} />
-          <Route path="/og-movies" element={<GridView type="ogMovie" />} />
-          <Route path="/tv-shows" element={<GridView type="tv" />} />
-          <Route path="/people" element={<GridView type="people" />} />
-          <Route path="/search/:query" element={<SearchPage />} />
+          {/* Routes with Navbar */}
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/movie/:id" element={<MoviePage isMovie={true} />} />
+            <Route path="/tv/:id" element={<MoviePage isMovie={false} />} />
+            <Route path="/ogmovie/:id" element={<MoviePage isMovie={false} isOgMovie={true} />} />
+            <Route path="/actor/:id" element={<ActorPage />} />
+            <Route path="/add-movie" element={<AddMoviePage />} />
+            <Route path="/movies" element={<GridView type="movie" />} />
+            <Route path="/og-movies" element={<GridView type="ogMovie" />} />
+            <Route path="/tv-shows" element={<GridView type="tv" />} />
+            <Route path="/people" element={<GridView type="people" />} />
+            <Route path="/search/:query" element={<SearchPage />} />
+          </Route>
+
+          {/* Routes without Navbar */}
+          <Route element={<AuthLayout />}>
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signin" element={<Signin />} />
+          </Route>
+
+          {/* 404 Page */}
           <Route
             path="*"
             element={

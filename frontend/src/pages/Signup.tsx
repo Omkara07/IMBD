@@ -55,7 +55,7 @@ const Signup = () => {
                     {success ? (
                         <div className="mb-6 p-4 rounded-lg bg-green-900/50 border border-green-500/20">
                             <p className="text-green-400">
-                                Account created successfully! Check your email for verification.
+                                Account created successfully!
                             </p>
                         </div>
                     ) : (
