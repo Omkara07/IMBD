@@ -28,7 +28,7 @@ const Signup = () => {
         }
         setError('');
         setSuccess(true);
-        const user = await axios.post('http://localhost:5000/api/v1/user/signup', formData);
+        const user = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/signup`, formData);
         localStorage.setItem('user', JSON.stringify(user.data));
         setUser(user.data)
         navigate('/')
