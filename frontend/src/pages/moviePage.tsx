@@ -40,7 +40,7 @@ const MoviePage = ({ isMovie, isOgMovie = false }: { isMovie: boolean, isOgMovie
         else {
 
             try {
-                const res = await axios.get(`https://api.themoviedb.org/3/${isMovie ? 'movie' : 'tv'}/${id}?api_key=${API_KEY}&language=en-US`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/${isMovie ? 'movie' : 'tv'}/${id}?api_key=${API_KEY}&language=en-US`);
                 setData(res?.data);
             } catch (err) {
                 setError('Failed to fetch movie data.');
@@ -51,7 +51,7 @@ const MoviePage = ({ isMovie, isOgMovie = false }: { isMovie: boolean, isOgMovie
 
         // Fetch videos (if needed)
         // try {
-        //     const videoRes = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`);
+        //     const videoRes = await axios.get(`${import.meta.env.VITE_API_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`);
         //     setVideos(videoRes?.data?.results || []);
         // } catch (err) {
         //     console.error('Failed to fetch videos:', err);

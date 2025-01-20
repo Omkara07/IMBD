@@ -17,7 +17,7 @@ function Slideshow() {
     const [slides, setSlides] = useState<slideType[] | null>(null);
     const fetchMovies = async () => {
         try {
-            const response = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
             setSlides(prev => [...(prev || []), ...response.data.results.slice(0, 5)]);
         } catch (error) {
             console.error('Error fetching movies:', error);
@@ -26,7 +26,7 @@ function Slideshow() {
 
     const fetchShows = async () => {
         try {
-            const response = await axios.get(`https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/tv/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
             setSlides(prev => [...(prev || []), ...response.data.results.slice(0, 5)]);
         } catch (error) {
             console.error('Error fetching TV shows:', error);

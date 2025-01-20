@@ -14,7 +14,7 @@ const SearchPage = () => {
     const [ogMovies, setOgMovies] = useState<any[]>([]);
 
     const fetchMovies = async () => {
-        const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/search/movie?api_key=${API_KEY}&query=${query}`);
         console.log(response.data)
         setMovies(response.data.results);
     };

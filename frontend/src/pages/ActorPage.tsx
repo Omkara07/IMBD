@@ -15,7 +15,7 @@ const ActorPage = () => {
 
     const getData = async () => {
         try {
-            const res = await axios.get(`https://api.themoviedb.org/3/person/${id}?api_key=${API_KEY}&language=en-US`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/person/${id}?api_key=${API_KEY}&language=en-US`);
             setData(res?.data);
         } catch (err) {
             setError('Failed to fetch movie data.');

@@ -17,15 +17,15 @@ const GridView = ({ type }: any) => {
 
 
     const fetchMovies = async (page: number) => {
-        const data = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+        const data = await axios.get(`${import.meta.env.VITE_API_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
         setData((prev: any[] | null) => prev !== null ? [...prev, ...data.data.results] : data.data.results);
     }
     const fetchShows = async (page: number) => {
-        const data = await axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+        const data = await axios.get(`${import.meta.env.VITE_API_URL}/tv/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
         setData((prev: any[] | null) => prev !== null ? [...prev, ...data.data.results] : data.data.results);
     }
     const fetchPeople = async (page: number) => {
-        const data = await axios.get(`https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+        const data = await axios.get(`${import.meta.env.VITE_API_URL}/person/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
         setData((prev: any[] | null) => prev !== null ? [...prev, ...data.data.results] : data.data.results);
     }
 

@@ -45,15 +45,15 @@ function HomePage() {
     const [OgMovies, setOgMovies] = useState<movieType[] | null>(null);
 
     const fetchMovies = async () => {
-        const data = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
+        const data = await axios.get(`${import.meta.env.VITE_API_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
         setTopMovies(data.data.results);
     }
     const fetchShows = async () => {
-        const data = await axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`);
+        const data = await axios.get(`${import.meta.env.VITE_API_URL}/tv/popular?api_key=${API_KEY}&language=en-US&page=1`);
         setTopShows(data.data.results)
     }
     const fetchPeople = async () => {
-        const data = await axios.get(`https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&language=en-US&page=1`);
+        const data = await axios.get(`${import.meta.env.VITE_API_URL}/person/popular?api_key=${API_KEY}&language=en-US&page=1`);
         setTopPeople(data.data.results);
     }
 

@@ -24,6 +24,27 @@ app.use(cors(corsOptions))
 
 app.use('/api/v1', mainRouter)
 
+// app.listen(PORT, () => {
+//     console.log(`Server is running on http://localhost:${PORT}`);
+// });
+
+app.get("/self-call", (req: Request, res: Response) => {
+    res.status(200).send("Server is alive!");
+});
+
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running`);
+
+    // Set up a periodic self-call every 20 seconds
+    const SELF_CALL_INTERVAL = 20 * 1000; // 20 seconds
+    const SELF_URL = process.env.SERVER_URL || `http://localhost:${PORT}/self-call`;
+
+    setInterval(async () => {
+        try {
+            await axios.get(SELF_URL);
+        } catch (error: any) {
+            console.error("Error during self-call:", error.message);
+        }
+    }, SELF_CALL_INTERVAL);
 });
